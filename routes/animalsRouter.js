@@ -47,7 +47,7 @@ animalsRouter.get("/", async function (req, res) {
 	const name = req.query.name;
 	if (name) {
 		const result = await query(
-			`SELECT * FROM animals WHERE animal_name = '${name.toLowerCase()}';`
+			`SELECT * FROM animals WHERE animal_name LIKE '%${name.toLowerCase()}%';`
 		);
 		console.log(result);
 		const responseObject = {
