@@ -30,6 +30,17 @@ animalsRouter.get("/", async function (req, res) {
 	res.json(responseObject);
 });
 
+animalsRouter.get("/:id", async function (req, res) {
+	const id = req.params.id;
+	const result = await query(`SELECT * FROM animals WHERE id = ${id} RETURNING *;`);
+	const responseObject = {
+		success: true,
+		message: "Displaying animals with id ${id}",
+		payload: result.rows,
+	}
+	res.json(responseObject);
+});
+
 //Check that we are communicating with the server
 // await pool.connect();
 // const result = await pool.query("SELECT NOW()");
