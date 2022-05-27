@@ -1,0 +1,29 @@
+Must use a REST API server with routes to manage requests and serve responses
+Must use the models pattern to allow easy interaction with the database
+Must use environment variables to store database credentials - do not hard code those credentials!
+Bonus: Once your API is up and running, you could build a front end which allows you to view, create, edit and delete data
+
+
+Must use a database (hosted on heroku or elephantSQL) for persistent storage
+    -gather data into excel sheet
+
+    -Use heroku
+        -set up new app
+        -create database within app
+        -create .env file to store credentials
+        -copy the credentials list from dotenv website 
+        -fill in credentials from heroku
+        -add SSL line
+
+    -inside index.js file within db folder
+        -import pg from "pg";
+        -create const pool = pg.Pool(config details - get template from dotenv website)
+        -create and export query to be used within create and populate table scripts
+
+    -create script folder within db file
+        -.js file for create table
+            -add to scripts in package.json - visit node-postgres.com to check syntax
+            -run script
+        -.js file to populate table
+            -add to scripts in package.json
+            -run script
