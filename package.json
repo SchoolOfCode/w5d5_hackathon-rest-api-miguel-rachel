@@ -6,10 +6,12 @@
 	"type": "module",
 	"scripts": {
 		"start": "node app.js",
-		"dev": "nodemon app.js",
+		"dev": "nodemon -r dotenv/config app.js",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"db:createAnimalTable": "node -r dotenv/config ./db/scripts/createAnimalTable.js",
-		"db:populateAnimalTable": "node -r dotenv/config ./db/scripts/populateAnimalTable.js"
+		"db:populateAnimalTable": "node -r dotenv/config ./db/scripts/populateAnimalTable.js",
+		"db:dropAnimalsTable": "node -r dotenv/config ./db/scripts/dropAnimalsTable.js",
+		"animalsRouter": "node -r dotenv/config ./routes/animalsRouter.js"
 	},
 	"keywords": [],
 	"author": "",
