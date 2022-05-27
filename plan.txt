@@ -5,21 +5,23 @@ Bonus: Once your API is up and running, you could build a front end which allows
 
 
 Must use a database (hosted on heroku or elephantSQL) for persistent storage
-    -gather data into excel sheet
+    -gather data into excel sheet X
 
     -Use heroku
-        -set up new app
-        -create database within app
-        -create .env file to store credentials
-        -copy the credentials list from dotenv website 
-        -fill in credentials from heroku
-        -add SSL line
+        -set up new app X
+        -create database within app X
+        -create .env file to store credentials X
+        -copy the credentials list from node-postgres website X
+        -fill in credentials from heroku X
 
     -inside index.js file within db folder
-        -import pg from "pg";
-        -create const pool = pg.Pool(config details - get template from dotenv website)
-        -create and export query to be used within create and populate table scripts
+        -import pg from "pg"; X
+        -create const pool = pg.Pool(config details - get template from dotenv website) X
+        -add SSL line X
+        -create and export query to be used within create and populate table scripts X
 
+    -create libs folder with animal-data.js toc populate animalsTable with. X
+    
     -create script folder within db file
         -.js file for create table
             -add to scripts in package.json - visit node-postgres.com to check syntax
