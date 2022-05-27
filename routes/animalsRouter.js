@@ -20,15 +20,15 @@ import { query } from "../db/index.js";
 
 //Select all from animals
 
-animalsRouter.get("/", async function (req, res) {
-	const result = await query(`SELECT * FROM animals;`);
-	const responseObject = {
-		success: true,
-		message: "Displaying all animals data",
-		payload: result.rows,
-	};
-	res.json(responseObject);
-});
+// animalsRouter.get("/", async function (req, res) {
+// 	const result = await query(`SELECT * FROM animals;`);
+// 	const responseObject = {
+// 		success: true,
+// 		message: "Displaying all animals data",
+// 		payload: result.rows,
+// 	};
+// 	res.json(responseObject);
+// });
 
 //search by animal id
 animalsRouter.get("/:id", async function (req, res) {
@@ -44,18 +44,27 @@ animalsRouter.get("/:id", async function (req, res) {
 
 //search animal by animal_name
 animalsRouter.get("/", async function (req, res) {
-	console.log(await req.query.name);
-	console.log(await req);
-	const result = await query(
-		`SELECT * FROM animals WHERE animal_name = '${req.query.name}';`
-	);
-	console.log(result);
-	const responseObject = {
-		success: true,
-		message: "Displaying",
-		payload: result.rows,
-	};
-	res.json(responseObject);
+	const name = req.query.name;
+	if (name) {
+		const result = await query(
+			`SELECT * FROM animals WHERE animal_name = '${name.toLowerCase()}';`
+		);
+		console.log(result);
+		const responseObject = {
+			success: true,
+			message: `Displaying ${name}`,
+			payload: result.rows,
+		};
+		res.json(responseObject);
+	} else {
+		const result = await query(`SELECT * FROM animals;`);
+		const responseObject = {
+			success: true,
+			message: "Displaying all animals data",
+			payload: result.rows,
+		};
+		res.json(responseObject);
+	}
 });
 
 //Check that we are communicating with the server
