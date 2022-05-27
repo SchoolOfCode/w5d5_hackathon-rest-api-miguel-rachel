@@ -30,14 +30,31 @@ animalsRouter.get("/", async function (req, res) {
 	res.json(responseObject);
 });
 
+//search by animal id
 animalsRouter.get("/:id", async function (req, res) {
 	const id = req.params.id;
-	const result = await query(`SELECT * FROM animals WHERE id = ${id} RETURNING *;`);
+	const result = await query(`SELECT * FROM animals WHERE id = ${id};`);
 	const responseObject = {
 		success: true,
-		message: "Displaying animals with id ${id}",
+		message: `Displaying animals with id ${id}`,
 		payload: result.rows,
-	}
+	};
+	res.json(responseObject);
+});
+
+//search animal by animal_name
+animalsRouter.get("/", async function (req, res) {
+	console.log(await req.query.name);
+	console.log(await req);
+	const result = await query(
+		`SELECT * FROM animals WHERE animal_name = '${req.query.name}';`
+	);
+	console.log(result);
+	const responseObject = {
+		success: true,
+		message: "Displaying",
+		payload: result.rows,
+	};
 	res.json(responseObject);
 });
 
