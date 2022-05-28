@@ -17,6 +17,7 @@ import express from "express";
 const animalsRouter = express.Router();
 
 import { query } from "../db/index.js";
+import { getAnimalById, getAnimalByName, getAllAnimals, createNewAnimal } from "../models/animalModels.js";
 
 //Select all from animals
 
@@ -33,11 +34,11 @@ import { query } from "../db/index.js";
 //search by animal id
 animalsRouter.get("/:id", async function (req, res) {
 	const id = req.params.id;
-	const result = await query(`SELECT * FROM animals WHERE id = ${id};`);
+	
 	const responseObject = {
 		success: true,
 		message: `Displaying animals with id ${id}`,
-		payload: result.rows,
+		payload: await getAnimalById(id)
 	};
 	res.json(responseObject);
 });
@@ -45,27 +46,34 @@ animalsRouter.get("/:id", async function (req, res) {
 //search animal by animal_name
 animalsRouter.get("/", async function (req, res) {
 	const name = req.query.name;
-	if (name) {
-		const result = await query(
-			`SELECT * FROM animals WHERE animal_name LIKE '%${name.toLowerCase()}%';`
-		);
-		console.log(result);
+	if (name) { 
 		const responseObject = {
 			success: true,
 			message: `Displaying ${name}`,
-			payload: result.rows,
+			payload: await getAnimalByName(name),
 		};
 		res.json(responseObject);
 	} else {
-		const result = await query(`SELECT * FROM animals;`);
 		const responseObject = {
 			success: true,
 			message: "Displaying all animals data",
-			payload: result.rows,
+			payload: await getAllAnimals(),
 		};
 		res.json(responseObject);
 	}
 });
+
+animalsRouter.post("/", async function (req, res) {
+	const body = req.body;
+	const responseObject = {
+		success: true,
+			message: "Create new animal data",
+			payload: await createNewAnimal(body),
+	}
+	res.json(responseObject);
+})
+
+
 
 //Check that we are communicating with the server
 // await pool.connect();
