@@ -11,6 +11,7 @@ app.get("/", function (req, res) {
 	});
 });
 
+app.use(express.json());
 app.use("/animals", animalsRouter);
 
 app.listen(PORT, function () {

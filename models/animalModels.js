@@ -27,9 +27,17 @@ export async function getAllAnimals() {
 }
 
 export async function createNewAnimal(body) {
-	console.log(body);
-	const result = await query(
-		`INSERT INTO animals (animal_name = $1, conservation_status = $2, approx_population = $3, region = $4, weight = $5, image = $6) VALUES ('${body.animal_name}', '${body.conservation_status}, '${body.approx_population}', '${body.region}', '${body.weight}', '${body.image}') RETURNING*;`
+	await query(
+		`INSERT INTO animals (animal_name, conservation_status, approx_population, region, weight, image) VALUES ($1, $2, $3, $4, $5, $6)`,
+		[
+			body.animal_name,
+			body.conservation_status,
+			body.approx_population,
+			body.region,
+			body.weight,
+			body.image,
+		]
 	);
+	const result = await query(`SELECT * FROM animals;`);
 	return result.rows;
 }
